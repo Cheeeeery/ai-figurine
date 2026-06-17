@@ -1,0 +1,4 @@
+listeners:
+  default:
+    bind: localhost:1883
+sys_interval: 20

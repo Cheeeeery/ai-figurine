@@ -1,0 +1,39 @@
+{
+  "title": "AI Figurine Schematic",
+  "version": "v2.0",
+  "date": "2026-06-16",
+  "components": [
+    {"ref": "U1", "value": "ESP32-S3 DevKitC", "description": "Main MCU Module"},
+    {"ref": "U2", "value": "INMP441", "description": "I2S MEMS Microphone"},
+    {"ref": "U3", "value": "MAX98357A", "description": "I2S Class D Amplifier"},
+    {"ref": "U4", "value": "AMS1117-3.3", "description": "3.3V LDO Regulator"},
+    {"ref": "D1", "value": "WS2812B", "description": "Left Eye RGB LED"},
+    {"ref": "D2", "value": "WS2812B", "description": "Right Eye RGB LED"},
+    {"ref": "S1", "value": "TTP223", "description": "Capacitive Touch Sensor"},
+    {"ref": "J1", "value": "USB-C", "description": "USB Type-C Power Input"},
+    {"ref": "J2", "value": "Speaker", "description": "2-Pin Speaker Connector"},
+    {"ref": "C1", "value": "100nF", "description": "ESP32 Decoupling"},
+    {"ref": "C2", "value": "100nF", "description": "ESP32 Decoupling"},
+    {"ref": "C3", "value": "100nF", "description": "INMP441 Decoupling"},
+    {"ref": "C4", "value": "100nF", "description": "MAX98357A Decoupling"},
+    {"ref": "C5", "value": "10uF", "description": "AMS1117 Input Bulk"},
+    {"ref": "C6", "value": "10uF", "description": "AMS1117 Output Bulk"},
+    {"ref": "R1", "value": "10K", "description": "EN Pin Pull-up to 3V3"}
+  ],
+  "nets": [
+    {"name": "+5V",  "pins": ["J1:A4/B4", "U3:VIN", "D1:VDD", "D2:VDD", "U4:IN"]},
+    {"name": "+3V3", "pins": ["U4:OUT", "U1:3V3", "U2:VDD", "S1:VCC"]},
+    {"name": "GND",  "pins": ["J1:A1/B1", "U1:GND", "U2:GND", "U3:GND", "U4:GND", "D1:VSS", "D2:VSS", "S1:GND", "U2:L/R"]},
+    {"name": "MIC_BCK", "pins": ["U1:IO4",  "U2:SCK"]},
+    {"name": "MIC_WS",  "pins": ["U1:IO5",  "U2:WS"]},
+    {"name": "MIC_SD",  "pins": ["U1:IO6",  "U2:SD"]},
+    {"name": "AMP_BCK", "pins": ["U1:IO15", "U3:BCLK"]},
+    {"name": "AMP_WS",  "pins": ["U1:IO16", "U3:LRC"]},
+    {"name": "AMP_SD",  "pins": ["U1:IO17", "U3:DIN"]},
+    {"name": "TOUCH",   "pins": ["U1:IO7",  "S1:I/O"]},
+    {"name": "LED_L",   "pins": ["U1:IO48", "D1:DIN"]},
+    {"name": "LED_R",   "pins": ["D1:DOUT", "D2:DIN"]},
+    {"name": "SPK+",    "pins": ["U3:OUT+", "J2:1"]},
+    {"name": "SPK-",    "pins": ["U3:OUT-", "J2:2"]}
+  ]
+}

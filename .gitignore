@@ -1,0 +1,12 @@
+﻿__pycache__/
+*.pyc
+.env
+*.pth
+*.ckpt
+voice_samples/
+ljs_voice/
+voice_train/
+output/
+GPT-SoVITS/
+*.zip
+*.7z

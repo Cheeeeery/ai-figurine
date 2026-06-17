@@ -1,0 +1,47 @@
+mqtt:
+  broker: localhost
+  port: 1883
+  username: figurine
+  password: figurine123
+  client_id: figurine_server
+  topics:
+    audio_in: figurine/audio/in
+    audio_out: figurine/audio/out
+    status: figurine/status
+    command: figurine/command
+  
+  # 阿里云物联网平台配置
+  aliyun_iot:
+    enabled: false
+    product_key: ""
+    device_name: ""
+    device_secret: ""
+    region: "cn-shanghai"
+    # 自动生成的broker地址，无需手动修改
+    # broker: ${productKey}.iot-as-mqtt.${region}.aliyuncs.com
+
+asr:
+  engine: funasr
+  model: paraformer-zh
+  sample_rate: 16000
+  chunk_size: 4096
+
+llm:
+  provider: deepseek
+  api_key: "sk-d26d8ed468c64afdbd0a4449a931d5f4"
+  model: deepseek-v4-flash
+  max_tokens: 200
+  temperature: 0.8
+
+tts:
+  engine: edge-tts
+  voice: zh-CN-YunxiNeural
+  rate: "+0%"
+  pitch: "+0Hz"
+
+audio:
+  format: pcm
+  sample_rate: 16000
+  channels: 1
+  sample_width: 2
+  chunk_size: 4096
