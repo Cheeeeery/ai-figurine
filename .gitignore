@@ -11,3 +11,4 @@ GPT-SoVITS/
 *.zip
 *.7z
 tools/chat_analysis.json
+ex-skill/.git/
