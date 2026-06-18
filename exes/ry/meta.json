@@ -1,0 +1,23 @@
+{
+  "name": "ry",
+  "slug": "ry",
+  "created_at": "2026-06-16T19:00:00Z",
+  "updated_at": "2026-06-16T19:00:00Z",
+  "version": "v1",
+  "profile": {
+    "together_duration": "快三年",
+    "apart_since": "未分手",
+    "occupation": "学生",
+    "gender": "female",
+    "mbti": "待补充",
+    "zodiac": "待补充"
+  },
+  "tags": {
+    "personality": ["活泼", "粘人", "爱撒娇", "直接", "主动"],
+    "attachment_style": "anxious",
+    "love_language": "肯定的言语（叫宝宝）"
+  },
+  "imression": "一个活泼粘人爱撒娇的女生，用"宝宝"和[亲亲]表达一切",
+  "memory_sources": ["D:\\VPN\\LAST\\ry\\ry.html"],
+  "corrections_count": 0
+}

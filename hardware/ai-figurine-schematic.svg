@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1400" width="1600" height="1400">
 <style>
   text { font-family: monospace; }
   .title { font-size: 18px; font-weight: bold; fill: #000080; }
@@ -9,352 +9,403 @@
   .power { font-size: 10px; fill: #0066CC; font-weight: bold; }
   .gnd { font-size: 10px; fill: #006600; font-weight: bold; }
   .note { font-size: 9px; fill: #666666; }
-  .box { fill: none; stroke: #808080; stroke-width: 1; }
   .compbox { fill: #F0F0FF; stroke: #000080; stroke-width: 1.5; }
   .wire { stroke: #333333; stroke-width: 1; fill: none; }
   .wirepower { stroke: #CC0000; stroke-width: 1; fill: none; }
   .wiregnd { stroke: #006600; stroke-width: 1; fill: none; }
+  .wirebat { stroke: #CC6600; stroke-width: 1.5; fill: none; }
   .pinDot { fill: #333333; }
+  .new { fill: #FFF8E0; stroke: #CC8800; stroke-width: 1.5; }
 </style>
 
-<!-- Title -->
 <text x="800" y="30" text-anchor="middle" class="title">AI Figurine - 硬件原理图 (Schematic)</text>
-<text x="800" y="50" text-anchor="middle" class="note">ESP32-S3 + INMP441 + MAX98357A + WS2812B + TTP223 | v2.0 | 2026-06-16</text>
+<text x="800" y="50" text-anchor="middle" class="note">Battery-First Design: LiPo + TP4056 + MT3608 Boost | v2.1</text>
 
 <!-- ==================== USB CONNECTOR J1 ==================== -->
-<rect x="50" y="100" width="180" height="200" class="compbox"/>
-<text x="140" y="120" text-anchor="middle" class="comp">J1: USB Type-C</text>
-<line x1="80" y1="140" x2="80" y2="155" class="wirepower"/>
-<text x="90" y="150" class="pin">A4/B4</text>
-<text x="130" y="150" class="power">+5V</text>
-<circle cx="80" cy="155" r="3" class="pinDot"/>
+<rect x="50" y="80" width="180" height="170" class="compbox"/>
+<text x="140" y="100" text-anchor="middle" class="comp">J1: USB Type-C</text>
+<text x="140" y="116" text-anchor="middle" class="note">Charging Only</text>
+<line x1="80" y1="135" x2="80" y2="150" class="wirepower"/>
+<text x="90" y="145" class="pin">A4/B4</text>
+<text x="130" y="145" class="power">+5V_USB</text>
+<circle cx="80" cy="150" r="3" class="pinDot"/>
+<line x1="80" y1="165" x2="80" y2="180" class="wiregnd"/>
+<text x="90" y="175" class="pin">A1/B1</text>
+<text x="130" y="175" class="gnd">GND</text>
+<line x1="80" y1="195" x2="80" y2="210" class="wiregnd"/>
+<text x="90" y="205" class="pin">CC1</text>
+<text x="120" y="205" class="note">5.1K</text>
+<line x1="80" y1="220" x2="80" y2="235" class="wiregnd"/>
+<text x="90" y="230" class="pin">CC2</text>
+<text x="120" y="230" class="note">5.1K</text>
 
-<line x1="80" y1="170" x2="80" y2="185" class="wiregnd"/>
-<text x="90" y="180" class="pin">A1/B1</text>
-<text x="130" y="180" class="gnd">GND</text>
+<!-- +5V_USB only to TP4056 -->
+<line x1="80" y1="150" x2="350" y2="150" class="wirepower"/>
+<text x="360" y="155" class="power">+5V_USB</text>
 
-<line x1="80" y1="200" x2="80" y2="215" class="wiregnd"/>
-<text x="90" y="210" class="pin">CC1</text>
-<text x="120" y="210" class="note">5.1K</text>
-<text x="145" y="210" class="gnd">GND</text>
+<!-- ==================== BATTERY J2 ==================== -->
+<rect x="50" y="300" width="180" height="110" class="new"/>
+<text x="140" y="320" text-anchor="middle" class="comp">J2: 3.7V LiPo</text>
+<text x="140" y="338" text-anchor="middle" class="note">200-500mAh w/Protection</text>
 
-<line x1="80" y1="230" x2="80" y2="245" class="wiregnd"/>
-<text x="90" y="240" class="pin">CC2</text>
-<text x="120" y="240" class="note">5.1K</text>
-<text x="145" y="240" class="gnd">GND</text>
+<text x="70" y="370" class="pin">B+</text>
+<line x1="100" y1="365" x2="100" y2="350" class="wirebat"/>
+<text x="110" y="360" class="power" style="fill:#CC6600">BAT+</text>
 
-<text x="80" y="280" class="note">DP/DM: NC</text>
+<text x="70" y="395" class="pin">B-</text>
+<line x1="100" y1="390" x2="100" y2="405" class="wiregnd"/>
+<text x="110" y="400" class="gnd">GND</text>
 
-<!-- +5V bus line -->
-<line x1="80" y1="155" x2="350" y2="155" class="wirepower"/>
-<text x="360" y="160" class="power">+5V</text>
+<!-- ==================== TP4056 U5 ==================== -->
+<rect x="50" y="450" width="220" height="180" class="new"/>
+<text x="160" y="470" text-anchor="middle" class="comp">U5: TP4056</text>
+<text x="160" y="488" text-anchor="middle" class="note">SOP-8 LiPo Charger</text>
 
-<!-- GND bus line -->
-<line x1="80" y1="185" x2="350" y2="185" class="wiregnd"/>
-<text x="360" y="190" class="gnd">GND</text>
+<text x="70" y="520" class="pin">VCC (Pin4)</text>
+<line x1="130" y1="515" x2="80" y2="515" class="wirepower"/>
+<text x="70" y="525" class="power">+5V_USB</text>
 
-<!-- ==================== AMS1117 LDO U4 ==================== -->
-<rect x="50" y="350" width="180" height="160" class="compbox"/>
-<text x="140" y="370" text-anchor="middle" class="comp">U4: AMS1117-3.3</text>
-<text x="140" y="390" text-anchor="middle" class="note">SOT-223</text>
+<text x="70" y="545" class="pin">CE (Pin5)</text>
+<line x1="130" y1="540" x2="130" y2="525" class="wirepower"/>
 
-<line x1="80" y1="410" x2="80" y2="425" class="wirepower"/>
-<text x="55" y="415" class="pin">IN</text>
-<text x="90" y="415" class="power">+5V</text>
+<text x="70" y="570" class="pin">TMR (Pin1)</text>
+<rect x="130" y="563" width="35" height="12" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="148" y="572" text-anchor="middle" class="note" fill="#008000">R3 2K</text>
+<text x="175" y="572" class="note">1A charge</text>
 
-<line x1="80" y1="440" x2="80" y2="455" class="wiregnd"/>
-<text x="55" y="445" class="pin">GND</text>
-<text x="90" y="445" class="gnd">GND</text>
+<text x="170" y="520" class="pin">B+ (Pin3)</text>
+<line x1="220" y1="515" x2="220" y2="500" class="wirebat"/>
+<text x="230" y="510" class="power" style="fill:#CC6600">BAT+</text>
 
-<line x1="200" y1="410" x2="200" y2="425" class="wirepower"/>
-<text x="170" y="415" class="pin">OUT</text>
-<text x="210" y="415" class="power">+3V3</text>
+<text x="170" y="545" class="pin">B- (Pin2)</text>
+<line x1="220" y1="540" x2="220" y2="555" class="wiregnd"/>
 
-<!-- C5 Input Cap -->
-<rect x="260" y="380" width="60" height="30" fill="none" stroke="#008000" stroke-width="1"/>
-<text x="290" y="398" text-anchor="middle" class="note" fill="#008000">C5 10uF</text>
+<text x="170" y="595" class="pin">GND (Pin8)</text>
+<line x1="220" y1="590" x2="220" y2="605" class="wiregnd"/>
 
-<!-- C6 Output Cap -->
-<rect x="260" y="440" width="60" height="30" fill="none" stroke="#008000" stroke-width="1"/>
-<text x="290" y="458" text-anchor="middle" class="note" fill="#008000">C6 10uF</text>
+<text x="170" y="620" class="pin">DONE/CHRG</text>
+<text x="230" y="620" class="note">NC (optional LED)</text>
 
-<!-- +3V3 bus line -->
-<line x1="200" y1="425" x2="350" y2="425" class="wirepower"/>
-<text x="360" y="430" class="power">+3V3</text>
+<!-- C7 input cap -->
+<rect x="70" y="630" width="45" height="18" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="93" y="643" text-anchor="middle" class="note" fill="#008000">C7 10uF</text>
+
+<!-- BAT+ wire from J2 to TP4056 -->
+<line x1="100" y1="350" x2="100" y2="330" class="wirebat"/>
+<line x1="100" y1="330" x2="220" y2="330" class="wirebat"/>
+<line x1="220" y1="330" x2="220" y2="500" class="wirebat"/>
+
+<!-- ==================== POWER SWITCH SW1 ==================== -->
+<rect x="350" y="300" width="100" height="50" class="new"/>
+<text x="400" y="318" text-anchor="middle" class="comp">SW1: Power</text>
+<text x="400" y="338" text-anchor="middle" class="note">Slide Switch</text>
+
+<line x1="220" y1="500" x2="350" y2="500" class="wirebat"/>
+<line x1="350" y1="500" x2="350" y2="340" class="wirebat"/>
+<line x1="400" y1="340" x2="400" y2="350" class="wirebat"/>
+<line x1="400" y1="350" x2="550" y2="350" class="wirebat"/>
+<text x="560" y="355" class="power" style="fill:#CC6600">VCC_SYS</text>
+
+<!-- ==================== MT3608 BOOST U6 ==================== -->
+<rect x="450" y="420" width="220" height="180" class="new"/>
+<text x="560" y="440" text-anchor="middle" class="comp">U6: MT3608</text>
+<text x="560" y="458" text-anchor="middle" class="note">SOT-23-6 Boost 2V-24V->5V</text>
+
+<text x="470" y="490" class="pin">VIN (Pin1)</text>
+<line x1="530" y1="485" x2="530" y2="470" class="wirebat"/>
+<text x="540" y="480" class="power" style="fill:#CC6600">VCC_SYS</text>
+
+<text x="470" y="515" class="pin">EN (Pin3)</text>
+<line x1="530" y1="510" x2="530" y2="495" class="wirebat"/>
+
+<text x="470" y="540" class="pin">GND (Pin2)</text>
+<line x1="530" y1="535" x2="530" y2="550" class="wiregnd"/>
+
+<text x="470" y="565" class="pin">SW (Pin6)</text>
+<rect x="530" y="558" width="50" height="14" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="555" y="568" text-anchor="middle" class="note" fill="#008000">L1 4.7uH</text>
+
+<text x="570" y="490" class="pin">VOUT (Pin5)</text>
+<line x1="630" y1="485" x2="630" y2="470" class="wirepower"/>
+<text x="640" y="480" class="power">+5V</text>
+
+<text x="570" y="540" class="pin">FB (Pin4)</text>
+<text x="630" y="540" class="note">feedback divider</text>
+
+<!-- Output caps -->
+<rect x="650" y="460" width="45" height="18" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="673" y="473" text-anchor="middle" class="note" fill="#008000">C8 10uF</text>
+<rect x="650" y="485" width="45" height="18" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="673" y="498" text-anchor="middle" class="note" fill="#008000">C9 100nF</text>
+
+<!-- R4 R5 feedback resistors -->
+<rect x="650" y="530" width="35" height="12" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="668" y="539" text-anchor="middle" class="note" fill="#008000">R4 30K</text>
+<rect x="650" y="548" width="35" height="12" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="668" y="557" text-anchor="middle" class="note" fill="#008000">R5 10K</text>
+<text x="695" y="545" class="note">Vout=0.6*(1+R4/R5)=5V</text>
+
+<!-- +5V bus from boost -->
+<line x1="630" y1="470" x2="750" y2="470" class="wirepower"/>
+<text x="760" y="475" class="power">+5V</text>
+
+<!-- ==================== AMS1117 U4 ==================== -->
+<rect x="450" y="650" width="180" height="130" class="compbox"/>
+<text x="540" y="670" text-anchor="middle" class="comp">U4: AMS1117-3.3</text>
+<text x="540" y="688" text-anchor="middle" class="note">SOT-223 LDO</text>
+
+<text x="470" y="715" class="pin">IN</text>
+<line x1="500" y1="710" x2="500" y2="700" class="wirebat"/>
+<text x="510" y="705" class="power" style="fill:#CC6600">VCC_SYS</text>
+
+<text x="470" y="740" class="pin">GND</text>
+<line x1="500" y1="735" x2="500" y2="750" class="wiregnd"/>
+
+<text x="570" y="715" class="pin">OUT</text>
+<line x1="600" y1="710" x2="600" y2="700" class="wirepower"/>
+<text x="610" y="705" class="power">+3V3</text>
+
+<rect x="630" y="680" width="45" height="18" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="653" y="693" text-anchor="middle" class="note" fill="#008000">C5 10uF</text>
+<rect x="630" y="740" width="45" height="18" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="653" y="753" text-anchor="middle" class="note" fill="#008000">C6 10uF</text>
+
+<!-- ==================== POWER FLOW DIAGRAM ==================== -->
+<rect x="750" y="80" width="400" height="300" fill="#FFFDE0" stroke="#CCAA00" stroke-width="1"/>
+<text x="950" y="100" text-anchor="middle" class="section">Power Flow (Battery-First)</text>
+
+<text x="770" y="130" class="comp" style="fill:#CC8800">Charging Path:</text>
+<text x="770" y="148" class="power">USB 5V -> TP4056 -> Battery 3.7V</text>
+<text x="770" y="166" class="note">Charge current: 1A (R3=2K)</text>
+
+<text x="770" y="196" class="comp" style="fill:#CC8800">Discharge Path (Main):</text>
+<text x="770" y="214" class="power" style="fill:#CC6600">Battery 3.7V -> SW1 -> VCC_SYS</text>
+<text x="770" y="232" class="power">VCC_SYS -> MT3608 Boost -> +5V</text>
+<text x="770" y="250" class="power">+5V -> WS2812B, MAX98357A</text>
+
+<text x="770" y="280" class="comp" style="fill:#CC8800">Discharge Path (3.3V):</text>
+<text x="770" y="298" class="power" style="fill:#CC6600">VCC_SYS -> AMS1117 -> +3V3</text>
+<text x="770" y="316" class="power">+3V3 -> ESP32, INMP441, TTP223</text>
+
+<text x="770" y="350" class="comp" style="fill:#CC8800">Note:</text>
+<text x="770" y="368" class="note">USB only charges, not powers device</text>
+<text x="770" y="386" class="note">MT3608 converts 3.7V->5V for LEDs/Amp</text>
 
 <!-- ==================== ESP32-S3 U1 ==================== -->
-<rect x="500" y="100" width="300" height="500" class="compbox"/>
-<text x="650" y="120" text-anchor="middle" class="comp">U1: ESP32-S3 DevKitC</text>
+<rect x="850" y="420" width="280" height="400" class="compbox"/>
+<text x="990" y="440" text-anchor="middle" class="comp">U1: ESP32-S3 DevKitC</text>
 
-<!-- Left pins -->
-<text x="520" y="155" class="pin">Pin 1: 3V3</text>
-<line x1="620" y1="150" x2="500" y2="150" class="wirepower"/>
-<text x="490" y="155" text-anchor="end" class="power">+3V3</text>
+<text x="870" y="475" class="pin">Pin 1: 3V3</text>
+<line x1="970" y1="470" x2="850" y2="470" class="wirepower"/>
+<text x="840" y="475" text-anchor="end" class="power">+3V3</text>
 
-<text x="520" y="180" class="pin">Pin 2: EN</text>
-<line x1="620" y1="175" x2="470" y2="175" class="wire"/>
-<rect x="420" y="168" width="40" height="14" fill="none" stroke="#008000" stroke-width="1"/>
-<text x="440" y="178" text-anchor="middle" class="note" fill="#008000">R1 10K</text>
-<line x1="420" y1="175" x2="400" y2="175" class="wirepower"/>
-<text x="390" y="180" text-anchor="end" class="power">+3V3</text>
+<text x="870" y="500" class="pin">Pin 2: EN</text>
+<line x1="970" y1="495" x2="820" y2="495" class="wire"/>
+<rect x="770" y="488" width="40" height="14" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="790" y="498" text-anchor="middle" class="note" fill="#008000">R1 10K</text>
+<line x1="770" y1="495" x2="750" y2="495" class="wirepower"/>
 
-<text x="520" y="205" class="pin">Pin 7: IO4</text>
-<line x1="620" y1="200" x2="860" y2="200" class="wirepower"/>
-<text x="870" y="205" class="net">MIC_BCK</text>
+<text x="870" y="525" class="pin">Pin 7: IO4</text>
+<line x1="970" y1="520" x2="1180" y2="520" class="wire"/>
+<text x="1190" y="525" class="net">MIC_BCK</text>
 
-<text x="520" y="230" class="pin">Pin 8: IO5</text>
-<line x1="620" y1="225" x2="860" y2="225" class="wirepower"/>
-<text x="870" y="230" class="net">MIC_WS</text>
+<text x="870" y="550" class="pin">Pin 8: IO5</text>
+<line x1="970" y1="545" x2="1180" y2="545" class="wire"/>
+<text x="1190" y="550" class="net">MIC_WS</text>
 
-<text x="520" y="255" class="pin">Pin 9: IO6</text>
-<line x1="620" y1="250" x2="860" y2="250" class="wirepower"/>
-<text x="870" y="255" class="net">MIC_SD</text>
+<text x="870" y="575" class="pin">Pin 9: IO6</text>
+<line x1="970" y1="570" x2="1180" y2="570" class="wire"/>
+<text x="1190" y="575" class="net">MIC_SD</text>
 
-<text x="520" y="280" class="pin">Pin 10: IO7</text>
-<line x1="620" y1="275" x2="860" y2="275" class="wirepower"/>
-<text x="870" y="280" class="net">TOUCH</text>
+<text x="870" y="600" class="pin">Pin 10: IO7</text>
+<line x1="970" y1="595" x2="1180" y2="595" class="wire"/>
+<text x="1190" y="600" class="net">TOUCH</text>
 
-<text x="520" y="305" class="pin">Pin 18: IO15</text>
-<line x1="620" y1="300" x2="860" y2="300" class="wirepower"/>
-<text x="870" y="305" class="net">AMP_BCK</text>
+<text x="870" y="625" class="pin">Pin 18: IO15</text>
+<line x1="970" y1="620" x2="1180" y2="620" class="wire"/>
+<text x="1190" y="625" class="net">AMP_BCK</text>
 
-<text x="520" y="330" class="pin">Pin 19: IO16</text>
-<line x1="620" y1="325" x2="860" y2="325" class="wirepower"/>
-<text x="870" y="330" class="net">AMP_WS</text>
+<text x="870" y="650" class="pin">Pin 19: IO16</text>
+<line x1="970" y1="645" x2="1180" y2="645" class="wire"/>
+<text x="1190" y="650" class="net">AMP_WS</text>
 
-<text x="520" y="355" class="pin">Pin 20: IO17</text>
-<line x1="620" y1="350" x2="860" y2="350" class="wirepower"/>
-<text x="870" y="355" class="net">AMP_SD</text>
+<text x="870" y="675" class="pin">Pin 20: IO17</text>
+<line x1="970" y1="670" x2="1180" y2="670" class="wire"/>
+<text x="1190" y="675" class="net">AMP_SD</text>
 
-<text x="520" y="380" class="pin">Pin 21: IO18</text>
-<text x="720" y="380" class="note">NC</text>
+<text x="870" y="700" class="pin">Pin 24: IO21</text>
+<line x1="970" y1="695" x2="1180" y2="695" class="wire"/>
+<text x="1190" y="700" class="net">LED_R</text>
 
-<text x="520" y="405" class="pin">Pin 24: IO21</text>
-<line x1="620" y1="400" x2="860" y2="400" class="wirepower"/>
-<text x="870" y="405" class="net">LED_R</text>
+<text x="870" y="725" class="pin">Pin 28: IO48</text>
+<line x1="970" y1="720" x2="1180" y2="720" class="wire"/>
+<text x="1190" y="725" class="net">LED_L</text>
 
-<text x="520" y="430" class="pin">Pin 28: IO48</text>
-<line x1="620" y1="425" x2="860" y2="425" class="wirepower"/>
-<text x="870" y="430" class="net">LED_L</text>
+<text x="870" y="760" class="pin">GND</text>
+<line x1="950" y1="765" x2="950" y2="800" class="wiregnd"/>
+<text x="950" y="815" text-anchor="middle" class="gnd">GND</text>
 
-<!-- Right side power -->
-<text x="660" y="460" class="pin">GND pins</text>
-<line x1="650" y1="465" x2="650" y2="500" class="wiregnd"/>
-<text x="650" y="515" text-anchor="middle" class="gnd">GND</text>
-
-<!-- Decoupling caps -->
-<rect x="720" y="140" width="70" height="25" fill="none" stroke="#008000" stroke-width="1"/>
-<text x="755" y="157" text-anchor="middle" class="note" fill="#008000">C1 100nF</text>
-
-<rect x="720" y="165" width="70" height="25" fill="none" stroke="#008000" stroke-width="1"/>
-<text x="755" y="182" text-anchor="middle" class="note" fill="#008000">C2 100nF</text>
+<rect x="1050" y="460" width="55" height="18" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="1078" y="473" text-anchor="middle" class="note" fill="#008000">C1 100nF</text>
+<rect x="1050" y="485" width="55" height="18" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="1078" y="498" text-anchor="middle" class="note" fill="#008000">C2 100nF</text>
 
 <!-- ==================== INMP441 U2 ==================== -->
-<rect x="1000" y="100" width="200" height="250" class="compbox"/>
-<text x="1100" y="120" text-anchor="middle" class="comp">U2: INMP441</text>
-<text x="1100" y="138" text-anchor="middle" class="note">I2S MEMS Microphone</text>
+<rect x="1200" y="420" width="180" height="200" class="compbox"/>
+<text x="1290" y="440" text-anchor="middle" class="comp">U2: INMP441</text>
+<text x="1290" y="458" text-anchor="middle" class="note">I2S Mic</text>
 
-<text x="1020" y="170" class="pin">VDD</text>
-<line x1="1080" y1="165" x2="1000" y2="165" class="wirepower"/>
-<text x="985" y="170" text-anchor="end" class="power">+3V3</text>
+<text x="1220" y="490" class="pin">VDD</text>
+<line x1="1280" y1="485" x2="1200" y2="485" class="wirepower"/>
+<text x="1185" y="490" text-anchor="end" class="power">+3V3</text>
 
-<text x="1020" y="195" class="pin">GND</text>
-<line x1="1080" y1="190" x2="1000" y2="190" class="wiregnd"/>
+<text x="1220" y="515" class="pin">GND</text>
+<line x1="1280" y1="510" x2="1200" y2="510" class="wiregnd"/>
 
-<text x="1020" y="220" class="pin">WS</text>
-<line x1="1080" y1="215" x2="1000" y2="215" class="wire"/>
-<text x="985" y="220" text-anchor="end" class="net">MIC_WS</text>
+<text x="1220" y="540" class="pin">WS</text>
+<line x1="1280" y1="535" x2="1200" y2="535" class="wire"/>
+<text x="1185" y="540" text-anchor="end" class="net">MIC_WS</text>
 
-<text x="1020" y="245" class="pin">SCK</text>
-<line x1="1080" y1="240" x2="1000" y2="240" class="wire"/>
-<text x="985" y="250" text-anchor="end" class="net">MIC_BCK</text>
+<text x="1220" y="565" class="pin">SCK</text>
+<line x1="1280" y1="560" x2="1200" y2="560" class="wire"/>
+<text x="1185" y="565" text-anchor="end" class="net">MIC_BCK</text>
 
-<text x="1020" y="270" class="pin">SD</text>
-<line x1="1080" y1="265" x2="1000" y2="265" class="wire"/>
-<text x="985" y="270" text-anchor="end" class="net">MIC_SD</text>
+<text x="1220" y="590" class="pin">SD</text>
+<line x1="1280" y1="585" x2="1200" y2="585" class="wire"/>
+<text x="1185" y="590" text-anchor="end" class="net">MIC_SD</text>
 
-<text x="1020" y="295" class="pin">L/R</text>
-<line x1="1080" y1="290" x2="1000" y2="290" class="wiregnd"/>
-<text x="985" y="295" text-anchor="end" class="gnd">GND</text>
+<text x="1220" y="615" class="pin">L/R</text>
+<line x1="1280" y1="610" x2="1200" y2="610" class="wiregnd"/>
 
-<!-- C3 -->
-<rect x="1220" y="155" width="60" height="25" fill="none" stroke="#008000" stroke-width="1"/>
-<text x="1250" y="172" text-anchor="middle" class="note" fill="#008000">C3 100nF</text>
+<rect x="1400" y="475" width="45" height="18" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="1423" y="488" text-anchor="middle" class="note" fill="#008000">C3 100nF</text>
 
 <!-- ==================== MAX98357A U3 ==================== -->
-<rect x="1000" y="400" width="200" height="250" class="compbox"/>
-<text x="1100" y="420" text-anchor="middle" class="comp">U3: MAX98357A</text>
-<text x="1100" y="438" text-anchor="middle" class="note">I2S Class D Amp</text>
+<rect x="1200" y="670" width="180" height="200" class="compbox"/>
+<text x="1290" y="690" text-anchor="middle" class="comp">U3: MAX98357A</text>
+<text x="1290" y="708" text-anchor="middle" class="note">I2S Class D Amp</text>
 
-<text x="1020" y="470" class="pin">VIN</text>
-<line x1="1080" y1="465" x2="1000" y2="465" class="wirepower"/>
-<text x="985" y="470" text-anchor="end" class="power">+5V</text>
+<text x="1220" y="740" class="pin">VIN</text>
+<line x1="1280" y1="735" x2="1200" y2="735" class="wirepower"/>
+<text x="1185" y="740" text-anchor="end" class="power">+5V</text>
 
-<text x="1020" y="495" class="pin">DIN</text>
-<line x1="1080" y1="490" x2="1000" y2="490" class="wire"/>
-<text x="985" y="495" text-anchor="end" class="net">AMP_SD</text>
+<text x="1220" y="765" class="pin">DIN</text>
+<line x1="1280" y1="760" x2="1200" y2="760" class="wire"/>
+<text x="1185" y="765" text-anchor="end" class="net">AMP_SD</text>
 
-<text x="1020" y="520" class="pin">BCLK</text>
-<line x1="1080" y1="515" x2="1000" y2="515" class="wire"/>
-<text x="985" y="520" text-anchor="end" class="net">AMP_BCK</text>
+<text x="1220" y="790" class="pin">BCLK</text>
+<line x1="1280" y1="785" x2="1200" y2="785" class="wire"/>
+<text x="1185" y="790" text-anchor="end" class="net">AMP_BCK</text>
 
-<text x="1020" y="545" class="pin">LRC</text>
-<line x1="1080" y1="540" x2="1000" y2="540" class="wire"/>
-<text x="985" y="545" text-anchor="end" class="net">AMP_WS</text>
+<text x="1220" y="815" class="pin">LRC</text>
+<line x1="1280" y1="810" x2="1200" y2="810" class="wire"/>
+<text x="1185" y="815" text-anchor="end" class="net">AMP_WS</text>
 
-<text x="1020" y="570" class="pin">GND</text>
-<line x1="1080" y1="565" x2="1000" y2="565" class="wiregnd"/>
+<text x="1220" y="840" class="pin">GND</text>
+<line x1="1280" y1="835" x2="1200" y2="835" class="wiregnd"/>
 
-<text x="1220" y="470" class="pin">OUT+</text>
-<line x1="1200" y1="465" x2="1300" y2="465" class="wire"/>
-<text x="1310" y="470" class="pin">SPK+</text>
+<text x="1400" y="740" class="pin">OUT+</text>
+<line x1="1380" y1="735" x2="1480" y2="735" class="wire"/>
 
-<text x="1220" y="495" class="pin">OUT-</text>
-<line x1="1200" y1="490" x2="1300" y2="490" class="wire"/>
-<text x="1310" y="500" class="pin">SPK-</text>
+<text x="1400" y="765" class="pin">OUT-</text>
+<line x1="1380" y1="760" x2="1480" y2="760" class="wire"/>
 
-<!-- Speaker J2 -->
-<rect x="1350" y="440" width="100" height="80" class="compbox"/>
-<text x="1400" y="460" text-anchor="middle" class="comp">J2: Speaker</text>
-<text x="1400" y="480" text-anchor="middle" class="note">2-Pin 2.54mm</text>
-<text x="1400" y="505" text-anchor="middle" class="note">8ohm 2W</text>
+<rect x="1400" y="720" width="45" height="18" fill="none" stroke="#008000" stroke-width="1"/>
+<text x="1423" y="733" text-anchor="middle" class="note" fill="#008000">C4 100nF</text>
 
-<!-- C4 -->
-<rect x="1220" y="455" width="60" height="25" fill="none" stroke="#008000" stroke-width="1"/>
-<text x="1250" y="472" text-anchor="middle" class="note" fill="#008000">C4 100nF</text>
+<!-- J3 Speaker -->
+<rect x="1490" y="710" width="90" height="80" class="compbox"/>
+<text x="1535" y="730" text-anchor="middle" class="comp">J3: Speaker</text>
+<text x="1535" y="748" text-anchor="middle" class="note">2-Pin</text>
+<text x="1535" y="768" text-anchor="middle" class="note">8ohm 2W</text>
 
 <!-- ==================== WS2812B LEDs ==================== -->
-<rect x="1000" y="700" width="120" height="100" class="compbox"/>
-<text x="1060" y="720" text-anchor="middle" class="comp">D1: WS2812B</text>
-<text x="1060" y="738" text-anchor="middle" class="note">Left Eye</text>
+<rect x="1200" y="920" width="110" height="80" class="compbox"/>
+<text x="1255" y="940" text-anchor="middle" class="comp">D1: WS2812B</text>
+<text x="1255" y="956" text-anchor="middle" class="note">Left Eye</text>
 
-<text x="1020" y="758" class="pin">VDD</text>
-<line x1="1060" y1="753" x2="1000" y2="753" class="wirepower"/>
-<text x="985" y="758" text-anchor="end" class="power">+5V</text>
+<text x="1220" y="975" class="pin">VDD</text>
+<line x1="1255" y1="970" x2="1200" y2="970" class="wirepower"/>
+<text x="1185" y="975" text-anchor="end" class="power">+5V</text>
 
-<text x="1020" y="775" class="pin">DIN</text>
-<line x1="1060" y1="770" x2="1000" y2="770" class="wire"/>
-<text x="985" y="775" text-anchor="end" class="net">LED_L</text>
+<text x="1220" y="990" class="pin">DIN</text>
+<line x1="1255" y1="985" x2="1200" y2="985" class="wire"/>
+<text x="1185" y="990" text-anchor="end" class="net">LED_L</text>
 
-<text x="1020" y="792" class="pin">VSS</text>
-<line x1="1060" y1="787" x2="1000" y2="787" class="wiregnd"/>
+<rect x="1350" y="920" width="110" height="80" class="compbox"/>
+<text x="1405" y="940" text-anchor="middle" class="comp">D2: WS2812B</text>
+<text x="1405" y="956" text-anchor="middle" class="note">Right Eye</text>
 
-<rect x="1180" y="700" width="120" height="100" class="compbox"/>
-<text x="1240" y="720" text-anchor="middle" class="comp">D2: WS2812B</text>
-<text x="1240" y="738" text-anchor="middle" class="note">Right Eye</text>
+<text x="1370" y="975" class="pin">VDD</text>
+<line x1="1405" y1="970" x2="1350" y2="970" class="wirepower"/>
 
-<text x="1200" y="758" class="pin">VDD</text>
-<line x1="1240" y1="753" x2="1180" y2="753" class="wirepower"/>
+<text x="1370" y="990" class="pin">DIN</text>
+<text x="1405" y="990" class="note">D1.DOUT</text>
 
-<text x="1200" y="775" class="pin">DIN</text>
-<text x="1240" y="775" class="note">from D1.DOUT</text>
-
-<text x="1200" y="792" class="pin">VSS</text>
-<line x1="1240" y1="787" x2="1180" y2="787" class="wiregnd"/>
-
-<!-- D1->D2 connection -->
-<line x1="1120" y1="770" x2="1180" y2="770" class="wire"/>
-<text x="1150" y="765" text-anchor="middle" class="net">DOUT->DIN</text>
+<line x1="1310" y1="985" x2="1350" y2="985" class="wire"/>
 
 <!-- ==================== TTP223 Touch ==================== -->
-<rect x="1000" y="860" width="160" height="100" class="compbox"/>
-<text x="1080" y="880" text-anchor="middle" class="comp">S1: TTP223</text>
-<text x="1080" y="898" text-anchor="middle" class="note">Touch Sensor</text>
+<rect x="1200" y="1050" width="140" height="80" class="compbox"/>
+<text x="1270" y="1070" text-anchor="middle" class="comp">S1: TTP223</text>
+<text x="1270" y="1086" text-anchor="middle" class="note">Touch Sensor</text>
 
-<text x="1020" y="920" class="pin">VCC</text>
-<line x1="1080" y1="915" x2="1000" y2="915" class="wirepower"/>
-<text x="985" y="920" text-anchor="end" class="power">+3V3</text>
+<text x="1220" y="1108" class="pin">VCC</text>
+<line x1="1270" y1="1103" x2="1200" y2="1103" class="wirepower"/>
+<text x="1185" y="1108" text-anchor="end" class="power">+3V3</text>
 
-<text x="1020" y="938" class="pin">I/O</text>
-<line x1="1080" y1="933" x2="1000" y2="933" class="wire"/>
-<text x="985" y="938" text-anchor="end" class="net">TOUCH</text>
-
-<text x="1020" y="955" class="pin">GND</text>
-<line x1="1080" y1="950" x2="1000" y2="950" class="wiregnd"/>
-
-<!-- Touch pad indicator -->
-<rect x="1180" y="890" width="80" height="60" fill="#FFFDE0" stroke="#CCAA00" stroke-width="1" rx="5"/>
-<text x="1220" y="915" text-anchor="middle" class="comp">Touch Pad</text>
-<text x="1220" y="935" text-anchor="middle" class="note">(Capacitive)</text>
-
-<!-- ==================== POWER RAIL LEGEND ==================== -->
-<rect x="50" y="600" width="350" height="150" fill="#FFFDE0" stroke="#CCAA00" stroke-width="1"/>
-<text x="225" y="620" text-anchor="middle" class="section">Power Distribution</text>
-
-<line x1="80" y1="640" x2="200" y2="640" class="wirepower" stroke-width="2"/>
-<text x="210" y="645" class="power">+5V (USB 5V)</text>
-<text x="80" y="660" class="note">-> U4 IN, U3 VIN, D1 VDD, D2 VDD</text>
-
-<line x1="80" y1="680" x2="200" y2="680" class="wirepower" stroke-width="2"/>
-<text x="210" y="685" class="power">+3V3 (LDO Output)</text>
-<text x="80" y="700" class="note">-> U1 3V3, U2 VDD, S1 VCC</text>
-
-<line x1="80" y1="720" x2="200" y2="720" class="wiregnd" stroke-width="2"/>
-<text x="210" y="725" class="gnd">GND (Common Ground)</text>
-<text x="80" y="740" class="note">-> All GND pins connected</text>
+<text x="1220" y="1123" class="pin">I/O</text>
+<line x1="1270" y1="1118" x2="1200" y2="1118" class="wire"/>
+<text x="1185" y="1123" text-anchor="end" class="net">TOUCH</text>
 
 <!-- ==================== BOM ==================== -->
-<rect x="50" y="800" width="350" height="250" fill="#F0FFF0" stroke="#00AA00" stroke-width="1"/>
-<text x="225" y="820" text-anchor="middle" class="section">Bill of Materials (BOM)</text>
+<rect x="50" y="850" width="400" height="310" fill="#F0FFF0" stroke="#00AA00" stroke-width="1"/>
+<text x="250" y="870" text-anchor="middle" class="section">Bill of Materials</text>
 
-<text x="60" y="845" class="comp">U1  ESP32-S3 DevKitC    x1</text>
-<text x="60" y="862" class="comp">U2  INMP441             x1</text>
-<text x="60" y="879" class="comp">U3  MAX98357A           x1</text>
-<text x="60" y="896" class="comp">U4  AMS1117-3.3         x1</text>
-<text x="60" y="913" class="comp">D1  WS2812B             x1</text>
-<text x="60" y="930" class="comp">D2  WS2812B             x1</text>
-<text x="60" y="947" class="comp">S1  TTP223 Module       x1</text>
-<text x="60" y="964" class="comp">J1  USB Type-C          x1</text>
-<text x="60" y="981" class="comp">J2  Speaker 2-Pin       x1</text>
-<text x="60" y="998" class="comp">C1-C4  100nF MLCC       x4</text>
-<text x="60" y="1015" class="comp">C5-C6  10uF  MLCC       x2</text>
-<text x="60" y="1032" class="comp">R1  10K (EN pullup)     x1</text>
+<text x="60" y="895" class="comp">U1  ESP32-S3 DevKitC    x1</text>
+<text x="60" y="912" class="comp">U2  INMP441             x1</text>
+<text x="60" y="929" class="comp">U3  MAX98357A           x1</text>
+<text x="60" y="946" class="comp">U4  AMS1117-3.3         x1</text>
+<text x="60" y="963" class="comp" style="fill:#CC8800">U5  TP4056              x1 (充电)</text>
+<text x="60" y="980" class="comp" style="fill:#CC8800">U6  MT3608              x1 (升压3.7V->5V)</text>
+<text x="60" y="997" class="comp">D1  WS2812B             x1</text>
+<text x="60" y="1014" class="comp">D2  WS2812B             x1</text>
+<text x="60" y="1031" class="comp">S1  TTP223 Module       x1</text>
+<text x="60" y="1048" class="comp">J1  USB Type-C          x1</text>
+<text x="60" y="1065" class="comp" style="fill:#CC8800">J2  3.7V LiPo 200-500mAh x1</text>
+<text x="60" y="1082" class="comp">J3  Speaker 2-Pin       x1</text>
+<text x="60" y="1099" class="comp">SW1 Power Switch        x1</text>
+<text x="60" y="1116" class="comp">C1-C4  100nF MLCC       x4</text>
+<text x="60" y="1133" class="comp">C5-C8  10uF  MLCC       x4</text>
+<text x="60" y="1150" class="comp">C9  100nF (boost out)   x1</text>
+<text x="60" y="1167" class="comp">L1  4.7uH (boost)       x1</text>
+<text x="60" y="1184" class="comp">R1 10K R3 2K R4 30K R5 10K</text>
+<text x="60" y="1201" class="comp">R6,R7 5.1K (USB CC)</text>
 
-<!-- ==================== NET CONNECTION TABLE ==================== -->
-<rect x="450" y="650" width="500" height="380" fill="#F0F0FF" stroke="#000080" stroke-width="1"/>
-<text x="700" y="670" text-anchor="middle" class="section">Signal Connections (Net List)</text>
+<!-- ==================== NET LIST ==================== -->
+<rect x="500" y="850" width="550" height="310" fill="#F0F0FF" stroke="#000080" stroke-width="1"/>
+<text x="775" y="870" text-anchor="middle" class="section">Connections</text>
 
-<text x="460" y="695" class="net">MIC_BCK</text>
-<text x="580" y="695" class="pin">GPIO4 (U1.P7) &lt;-&gt; SCK (U2.P4)</text>
+<text x="510" y="898" class="section" style="font-size:11px">Power Architecture:</text>
+<text x="510" y="916" class="power">USB 5V -> TP4056 -> Battery 3.7V (charging only)</text>
+<text x="510" y="934" class="power" style="fill:#CC6600">Battery 3.7V -> SW1 -> VCC_SYS (main power)</text>
+<text x="510" y="952" class="power">VCC_SYS -> MT3608 -> +5V (LEDs + Amp)</text>
+<text x="510" y="970" class="power" style="fill:#CC6600">VCC_SYS -> AMS1117 -> +3V3 (MCU + Sensors)</text>
 
-<text x="460" y="715" class="net">MIC_WS</text>
-<text x="580" y="715" class="pin">GPIO5 (U1.P8) &lt;-&gt; WS  (U2.P3)</text>
+<text x="510" y="1000" class="section" style="font-size:11px">Signal Nets:</text>
+<text x="510" y="1018" class="net">MIC_BCK:  GPIO4  <-> INMP441 SCK</text>
+<text x="510" y="1036" class="net">MIC_WS:   GPIO5  <-> INMP441 WS</text>
+<text x="510" y="1054" class="net">MIC_SD:   GPIO6  <-> INMP441 SD</text>
+<text x="510" y="1072" class="net">AMP_BCK:  GPIO15 <-> MAX98357A BCLK</text>
+<text x="510" y="1090" class="net">AMP_WS:   GPIO16 <-> MAX98357A LRC</text>
+<text x="510" y="1108" class="net">AMP_SD:   GPIO17 <-> MAX98357A DIN</text>
+<text x="510" y="1126" class="net">TOUCH:    GPIO7  <-> TTP223 I/O</text>
+<text x="510" y="1144" class="net">LED_L:    GPIO48 <-> D1 DIN</text>
+<text x="510" y="1162" class="net">LED_R:    GPIO21 <-> D2 DIN (via D1)</text>
 
-<text x="460" y="735" class="net">MIC_SD</text>
-<text x="580" y="735" class="pin">GPIO6 (U1.P9) &lt;-&gt; SD  (U2.P5)</text>
-
-<text x="460" y="755" class="net">AMP_BCK</text>
-<text x="580" y="755" class="pin">GPIO15 (U1.P18) &lt;-&gt; BCLK (U3.P3)</text>
-
-<text x="460" y="775" class="net">AMP_WS</text>
-<text x="580" y="775" class="pin">GPIO16 (U1.P19) &lt;-&gt; LRC  (U3.P4)</text>
-
-<text x="460" y="795" class="net">AMP_SD</text>
-<text x="580" y="795" class="pin">GPIO17 (U1.P20) &lt;-&gt; DIN  (U3.P2)</text>
-
-<text x="460" y="815" class="net">TOUCH</text>
-<text x="580" y="815" class="pin">GPIO7 (U1.P10) &lt;-&gt; I/O  (S1.P2)</text>
-
-<text x="460" y="835" class="net">LED_L</text>
-<text x="580" y="835" class="pin">GPIO48 (U1.P28) &lt;-&gt; DIN  (D1.P2)</text>
-
-<text x="460" y="855" class="net">LED_R</text>
-<text x="580" y="855" class="pin">D1.DOUT (D1.P3) &lt;-&gt; DIN  (D2.P2)</text>
-
-<text x="460" y="875" class="net">SPK+</text>
-<text x="580" y="875" class="pin">OUT+ (U3.P7) &lt;-&gt; J2.P1</text>
-
-<text x="460" y="895" class="net">SPK-</text>
-<text x="580" y="895" class="pin">OUT- (U3.P8) &lt;-&gt; J2.P2</text>
-
-<text x="460" y="915" class="net">EN</text>
-<text x="580" y="915" class="pin">EN (U1.P2) &lt;-&gt; R1(10K) &lt;-&gt; +3V3</text>
-
-<text x="460" y="940" class="section">Power Rails:</text>
-<text x="460" y="960" class="power">+5V  -> J1, U4.IN, U3.VIN, D1.D2.VDD</text>
-<text x="460" y="980" class="power">+3V3 -> U4.OUT, U1.3V3, U2.VDD, S1.VCC</text>
-<text x="460" y="1000" class="gnd">GND  -> Common ground plane</text>
-
-<text x="460" y="1025" class="note">Decoupling: C1,C2(U1) C3(U2) C4(U3) C5,C6(U4)</text>
+<text x="510" y="1192" class="section" style="font-size:11px">MT3608 Boost Design:</text>
+<text x="510" y="1210" class="note">Vin: 2V-24V (battery 3.7V OK)</text>
+<text x="510" y="1228" class="note">Vout: 0.6*(1+R4/R5) = 0.6*(1+30K/10K) = 5V</text>
+<text x="510" y="1246" class="note">L1: 4.7uH power inductor</text>
+<text x="510" y="1264" class="note">Efficiency: ~90% at 500mA load</text>
 
 </svg>

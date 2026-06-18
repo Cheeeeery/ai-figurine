@@ -1,0 +1,23 @@
+{
+  "name": "渐渐被你吸引丶",
+  "slug": "user",
+  "created_at": "2026-06-16T19:00:00Z",
+  "updated_at": "2026-06-16T19:00:00Z",
+  "version": "v1",
+  "profile": {
+    "together_duration": "快三年",
+    "apart_since": "未分手",
+    "occupation": "待补充",
+    "gender": "male",
+    "mbti": "待补充",
+    "zodiac": "待补充"
+  },
+  "tags": {
+    "personality": ["内敛", "不善表达", "用表情代替文字", "被动", "粘人"],
+    "attachment_style": "anxious",
+    "love_language": "肢体接触（表情包）"
+  },
+  "impression": "一个不善表达但很爱女朋友的男生，用[可怜]代替千言万语",
+  "memory_sources": ["D:\\VPN\\LAST\\ry\\ry.html"],
+  "corrections_count": 0
+}
